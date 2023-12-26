@@ -1,6 +1,8 @@
 package core;
 
 import database.DatabaseConnector;
+import database.Utils;
+import jdk.jshell.execution.Util;
 
 import javax.security.auth.login.LoginException;
 import java.sql.Connection;
@@ -9,7 +11,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String pathToFile = "";
+        String pathToFile = "C:\\Users\\Administrator\\Desktop\\JavaPayy\\JavaPayy\\config.json";
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -49,6 +51,10 @@ public class Main {
             if (connection != null) {
                 System.out.println("Connected to the database successfully.");
                 try {
+                    Utils.createTableInformation(connection, "INFORMATION");
+                    Utils.createTableWorld(connection);
+                    Utils.createTableUser(connection);
+                    Utils.insertWorldData(connection);
                     JDABot bot = new JDABot(connection, botToken, adminIDs, channelDeposit, statusWatching, emojiWL, emojiLine, emojiArrow);
                 } catch (LoginException e) {
                     System.out.println("ERROR: Provided bot token is invalid!");
