@@ -1,12 +1,10 @@
 package core;
 
 import database.DatabaseConnector;
-import database.Utils;
 
 import javax.security.auth.login.LoginException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -50,7 +48,6 @@ public class Main {
             Connection connection = connector.getConnection(true);
             if (connection != null) {
                 System.out.println("Connected to the database successfully.");
-                // Other database operations...
                 try {
                     JDABot bot = new JDABot(connection, botToken, adminIDs, channelDeposit, statusWatching, emojiWL, emojiLine, emojiArrow);
                 } catch (LoginException e) {
