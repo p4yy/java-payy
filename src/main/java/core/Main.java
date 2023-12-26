@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String pathToFile = "C:\\Users\\Administrator\\Desktop\\JavaPayy\\JavaPayy\\config.json";
+        String pathToFile = "";
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
