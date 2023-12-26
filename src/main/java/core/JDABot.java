@@ -20,7 +20,7 @@ public class JDABot {
         // build shard manager using the provided token
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
         builder.setStatus(OnlineStatus.ONLINE);
-        builder.setActivity(Activity.watching("JavaPayy is Great"));
+        builder.setActivity(Activity.playing(statusWatching));
         builder.enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_WEBHOOKS);
         shardManager = builder.build();
 
