@@ -44,8 +44,8 @@ The `config.json` file plays a crucial role in the bot's functionality, housing 
 These configurations manage various aspects of the Discord bot's functionality:
 
 - `jdbc_url`: JDBC URL for connecting to the SQL database. Example: "jdbc:mysql://localhost:3306/db_name?sslmode=require".
-- `db_username`: Username required to access the MySQL database.
-- `db_password`: Password for accessing the MySQL database.
+- `db_username`: Username required to access the SQL database.
+- `db_password`: Password for accessing the SQL database.
 - `use_postgreSQL`: Boolean flag indicating whether PostgreSQL is used (default: false).
 - `token`: Discord bot token for authentication purposes.
 - `guild_id`: Discord guild (server) ID where the bot operates.
