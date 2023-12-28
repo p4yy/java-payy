@@ -12,7 +12,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         LogUtil.showAsciiArt();
-        String pathToFile = "D:\\backup\\config.json";
+        String pathToFile = "";
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
