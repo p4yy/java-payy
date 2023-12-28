@@ -1,6 +1,6 @@
 # JavaPayy
 
-JavaPayy is a Discord bot project designed for facilitating sales within Discord servers. The bot is developed using JDA (Java Discord API) and MySQL, utilizing PlanetScale for efficient data management. However, it's possible to utilize other MySQL hosting services.
+JavaPayy is a Discord bot project designed for facilitating sales within Discord servers. The bot is developed using JDA (Java Discord API) and supports both MySQL and PostgreSQL databases for efficient data management. It's adaptable to various MySQL hosting services or PostgreSQL setups, providing flexibility in database choices based on user preferences or specific requirements.
 
 ## Configuration
 
@@ -8,34 +8,73 @@ The `config.json` file plays a crucial role in the bot's functionality, housing 
 
 ```json
 {
-  "db_host": "Your_MySQL_Database_Hostname",
-  "db_username": "Your_Database_Username",
-  "db_password": "Your_Database_Password",
-  "db_name": "Your_Database_Name",
-  "token": "Your_Discord_Bot_Token",
+  "jdbc_url": "jdbc:mysql://localhost:3306/db_name?sslmode=require", 
+  "db_username": "",
+  "db_password": "",
+  "use_postgreSQL": false,
+  "token": "",
+  "guild_id": "",
   "admin_ids": [
-    "Your_Admin_User_IDs"
+    ""
   ],
   "prefix": "!",
-  "emoji_wl": "Emoji_WL",
-  "emoji_line": "Emoji_Line",
-  "emoji_arrow": "Emoji_Arrow",
-  "channel_id_deposit": "Deposit_Channel_ID",
-  "status_watching": ""
+  "status_playing": "",
+  "emoji_currency": "",
+  "emoji_line": "**------------**",
+  "emoji_arrow": "",
+  "channel_id_deposit": "",
+  "channel_id_history_deposit": "",
+  "channel_id_history_purchase": "",
+  "banner_url_stock": "",
+  "banner_url_purchase": "",
+  "timezone": "GMT+7",
+  "logs_purchase_setting": {
+    "use_feature": false,
+    "channel_id_only_admin": ""
+  },
+  "live_stock_setting": {
+    "use_feature": false,
+    "channel_id_live_stock": "",
+    "interval_in_second": 30
+  }
 }
 ```
+## Configuration Details
 
-**Configuration Details:**
+These configurations manage various aspects of the Discord bot's functionality:
 
-- `db_host`: Hostname for the MySQL database.
+- `jdbc_url`: JDBC URL for connecting to the SQL database. Example: "jdbc:mysql://localhost:3306/db_name?sslmode=require".
 - `db_username`: Username required to access the MySQL database.
 - `db_password`: Password for accessing the MySQL database.
-- `db_name`: Name of the specific MySQL database.
+- `use_postgreSQL`: Boolean flag indicating whether PostgreSQL is used (default: false).
 - `token`: Discord bot token for authentication purposes.
+- `guild_id`: Discord guild (server) ID where the bot operates.
 - `admin_ids`: An array containing Discord user IDs granted admin privileges.
-- `prefix`: Command prefix utilized for invoking bot commands (default: `!`).
-- `emoji_wl`, `emoji_line`, `emoji_arrow`: Emojis employed for specific functionalities.
+- `prefix`: Command prefix utilized for invoking bot commands.
+- `status_playing`: Discord status the bot displays.
+- `emoji_currency`, `emoji_line`, `emoji_arrow`: Emojis employed for specific functionalities.
 - `channel_id_deposit`: Discord channel ID designated for deposit.
+- `channel_id_history_deposit`: Discord channel ID for history deposit.
+- `channel_id_history_purchase`: Discord channel ID for purchase transaction history.
+- `banner_url_stock`: URL for the banner related to stock information.
+- `banner_url_purchase`: URL for the banner related to purchase information.
+- `timezone`: Timezone setting for the bot. Example: "GMT+7".
+
+### Logs Purchase Setting
+
+Settings for logging purchase-related activities:
+
+- `use_feature`: Boolean flag indicating whether purchase logging is enabled.
+- `channel_id_only_admin`: Discord channel ID where purchase logs are sent (only visible to admins).
+
+### Live Stock Setting
+
+Settings for live stock updates:
+
+- `use_feature`: Boolean flag indicating whether live stock updates are enabled.
+- `channel_id_live_stock`: Discord channel ID for live stock updates.
+- `interval_in_second`: Interval (in seconds) for updating stock information in the live stock channel. Example: 30.
+
 
 ## Usage
 
