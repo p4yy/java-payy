@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
         LogUtil.showAsciiArt();
         String pathToFile = "";
 
@@ -56,10 +56,9 @@ public class Main {
         boolean isUseLiveStock = config.isUseLiveStock();
         List<String> adminIDs = config.getAdminIds();
 
-        DatabaseConnector connector = new DatabaseConnector(jdbcUrl,dbUsername,dbPassword);
-
         try {
             // Database connection
+            DatabaseConnector connector = new DatabaseConnector(jdbcUrl, dbUsername, dbPassword, isPostgreSQL);
             Connection connection = connector.getConnection();
             if (connection != null) {
                 LogUtil.logInfo("DatabaseConnector", "Connected to the database successfully.");
