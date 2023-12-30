@@ -208,14 +208,4 @@ public class UtilsCommand {
             LogUtil.logError("DiscordCommand", "Something wrong with the database");
         }
     }
-
-
-
-
-
-
-
-
-
-
 }

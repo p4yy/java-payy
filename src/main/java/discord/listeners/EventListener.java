@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 import discord.utils.UtilsDiscord;
 
 import java.sql.Connection;
-import java.util.List;
 
 
 public class EventListener extends ListenerAdapter {

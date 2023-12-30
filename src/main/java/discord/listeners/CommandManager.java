@@ -1,7 +1,5 @@
 package discord.listeners;
 
-//import net.dv8tion.jda.api.entities.*;
-//import net.dv8tion.jda.api.events.ReadyEvent;
 import core.Config;
 import discord.utils.UtilsCommand;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
@@ -41,6 +39,8 @@ public class CommandManager extends ListenerAdapter {
         String command = event.getName();
 
         switch (command) {
+            case "help":
+                UtilsCommand.help(event, false, "/");
             case "setuser":
                 OptionMapping usernameOption = event.getOption("username");
                 assert usernameOption != null;
@@ -77,6 +77,9 @@ public class CommandManager extends ListenerAdapter {
     @Override
     public void onGuildReady(@NotNull GuildReadyEvent event) {
         List<CommandData> commandData = new ArrayList<>();
+
+        // help
+        commandData.add(Commands.slash("help", "Show help"));
 
         // check user
         commandData.add(Commands.slash("checkuser", "Check your current username"));

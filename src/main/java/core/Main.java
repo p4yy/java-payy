@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException {
         LogUtil.showAsciiArt();
-        String pathToFile = "D:\\Programming\\java-jar\\JavaPayy\\config.json";
+        String pathToFile = "";
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {

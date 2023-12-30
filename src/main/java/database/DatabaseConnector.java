@@ -10,7 +10,6 @@ public class DatabaseConnector {
     private final Connection connection;
 
     public DatabaseConnector(Config config) throws ClassNotFoundException, SQLException {
-//    public DatabaseConnector(String jdbcUrl, String jdbcUsername, String jdbcPassword, boolean isPostgreSQL) throws ClassNotFoundException {
         String jdbcUrl = config.getJdbcUrl();
         String jdbcUsername = config.getDbUsername();
         String jdbcPassword = config.getDbPassword();
