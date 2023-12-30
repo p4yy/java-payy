@@ -1,23 +1,25 @@
 package database;
 
+import core.Config;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnector {
-    private final String jdbcUrl;
-    private final String jdbcUsername;
-    private final String jdbcPassword;
+    private final Connection connection;
 
-    public DatabaseConnector(String jdbcUrl, String jdbcUsername, String jdbcPassword, boolean isPostgreSQL) throws ClassNotFoundException {
-        this.jdbcUrl = jdbcUrl;
-        this.jdbcUsername = jdbcUsername;
-        this.jdbcPassword = jdbcPassword;
-        if (isPostgreSQL) Class.forName("org.postgresql.Driver");
+    public DatabaseConnector(Config config) throws ClassNotFoundException, SQLException {
+//    public DatabaseConnector(String jdbcUrl, String jdbcUsername, String jdbcPassword, boolean isPostgreSQL) throws ClassNotFoundException {
+        String jdbcUrl = config.getJdbcUrl();
+        String jdbcUsername = config.getDbUsername();
+        String jdbcPassword = config.getDbPassword();
+        if (config.isPostgreSQL()) Class.forName("org.postgresql.Driver");
         else Class.forName("com.mysql.cj.jdbc.Driver");
+        connection = DriverManager.getConnection(jdbcUrl, jdbcUsername, jdbcPassword);
     }
 
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(jdbcUrl, jdbcUsername, jdbcPassword);
+    public Connection getConnection() {
+        return this.connection;
     }
 }

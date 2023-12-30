@@ -7,12 +7,11 @@ import logger.LogUtil;
 import javax.security.auth.login.LoginException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException {
         LogUtil.showAsciiArt();
-        String pathToFile = "";
+        String pathToFile = "D:\\Programming\\java-jar\\JavaPayy\\config.json";
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -32,33 +31,8 @@ public class Main {
             return;
         }
 
-        String jdbcUrl = config.getJdbcUrl();
-        String dbUsername = config.getDbUsername();
-        String dbPassword = config.getDbPassword();
-        String botToken = config.getToken();
-        String channelDeposit = config.getChannelIdDeposit();
-        String  channelHistoryDeposit = config.getChannelIdDepositHistory();
-        String channelHistory = config.getChannelIdHistory();
-        String emojiCurrency = config.getEmojiCurrency();
-        String emojiLine = config.getEmojiLine();
-        String emojiArrow = config.getEmojiArrow();
-        String prefix = config.getPrefix();
-        String statusPlaying = config.getStatusPlaying();
-        String bannerUrlStock = config.getBannerUrlStock();
-        String bannerUrlPurchase = config.getBannerUrlPurchase();
-        String gmtTime = config.getGmtTime();
-        String guildID = config.getGuildID();
-        String channelIdAdminLogsPurchaseSetting = config.getChannelIdAdminLogsPurchaseSetting();
-        String channelIdLiveStock = config.getChannelIdLiveStock();
-        int intervalLiveStock = config.getIntervalLiveStock();
-        boolean isUselogsPurchaseSetting = config.isUselogsPurchaseSetting();
-        boolean isPostgreSQL = config.isPostgreSQL();
-        boolean isUseLiveStock = config.isUseLiveStock();
-        List<String> adminIDs = config.getAdminIds();
-
         try {
-            // Database connection
-            DatabaseConnector connector = new DatabaseConnector(jdbcUrl, dbUsername, dbPassword, isPostgreSQL);
+            DatabaseConnector connector = new DatabaseConnector(config);
             Connection connection = connector.getConnection();
             if (connection != null) {
                 LogUtil.logInfo("DatabaseConnector", "Connected to the database successfully.");
@@ -69,29 +43,7 @@ public class Main {
                     Utils.createTableHistory(connection);
                     Utils.insertDataHistory(connection);
                     Utils.insertWorldData(connection);
-                    JDABot bot = new JDABot(
-                            connection,
-                            botToken,
-                            adminIDs,
-                            channelDeposit,
-                            channelHistory,
-                            channelHistoryDeposit,
-                            statusPlaying,
-                            emojiCurrency,
-                            emojiLine,
-                            emojiArrow,
-                            prefix,
-                            bannerUrlStock,
-                            bannerUrlPurchase,
-                            gmtTime,
-                            guildID,
-                            channelIdAdminLogsPurchaseSetting,
-                            isUselogsPurchaseSetting,
-                            isPostgreSQL,
-                            isUseLiveStock,
-                            channelIdLiveStock,
-                            intervalLiveStock
-                    );
+                    JDABot bot = new JDABot(connection, config);
                 } catch (LoginException | InterruptedException e) {
                     LogUtil.logError("BotToken","Provided bot token is invalid!", e);
                 }

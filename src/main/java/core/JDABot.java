@@ -1,6 +1,7 @@
 package core;
 
 import database.Utils;
+import discord.listeners.CommandManager;
 import discord.listeners.EventListener;
 import discord.listeners.WebhookListener;
 import discord.utils.Helper;
@@ -29,37 +30,17 @@ public class JDABot {
 
     private final ShardManager shardManager;
 
-    public JDABot(
-            Connection connection,
-            String token,
-            List<String> adminIDs,
-            String channelDeposit,
-            String channelHistory,
-            String channelDepositHistory,
-            String statusPlaying,
-            String emojiCurrency,
-            String emojiLine,
-            String emojiArrow,
-            String prefix,
-            String bannerUrlStock,
-            String bannerUrlPurchase,
-            String gmtTime,
-            String guildID,
-            String channelIdAdminLogsPurchaseSetting,
-            boolean isUselogsPurchaseSetting,
-            boolean isPostgreSQL,
-            boolean isUseLiveStock,
-            String liveStockChannelID,
-            int intervalLiveStock
-    ) throws LoginException, InterruptedException {
+    public JDABot(Connection connection, Config config) throws LoginException, InterruptedException {
+
         // build shard manager using the provided token
-        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
+        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(config.getToken());
         builder.setStatus(OnlineStatus.ONLINE);
-        if (statusPlaying != null) {
-            builder.setActivity(Activity.playing(statusPlaying));
+        if (config.getStatusPlaying() != null) {
+            builder.setActivity(Activity.playing(config.getStatusPlaying()));
         }
         builder.enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_WEBHOOKS, GatewayIntent.GUILD_MEMBERS);
         shardManager = builder.build();
+        shardManager.addEventListener(new CommandManager(connection, shardManager, config));
 
         boolean allShardsReady = false;
         while (!allShardsReady) {
@@ -78,39 +59,17 @@ public class JDABot {
         }
 
         shardManager.addEventListener(
-                new EventListener(
-                        connection,
-                        shardManager,
-                        channelHistory,
-                        channelDepositHistory,
-                        prefix,
-                        adminIDs,
-                        emojiCurrency,
-                        emojiLine,
-                        emojiArrow,
-                        bannerUrlStock,
-                        bannerUrlPurchase,
-                        gmtTime,
-                        guildID,
-                        channelIdAdminLogsPurchaseSetting,
-                        isUselogsPurchaseSetting,
-                        isPostgreSQL
-                )
-        );
-        shardManager.addEventListener(
-                new WebhookListener(
-                        connection,
-                        shardManager,
-                        isPostgreSQL,
-                        channelDeposit,
-                        channelDepositHistory,
-                        emojiCurrency
-                )
+                new EventListener(connection, shardManager, config)
         );
 
-        if (isUseLiveStock) {
+        shardManager.addEventListener(
+                new WebhookListener(connection, shardManager, config)
+        );
+
+
+        if (config.isUseLiveStock()) {
             LogUtil.logInfo("Threading", "Do threading for livestock feature");
-            doThreadingLiveStock(connection, shardManager, liveStockChannelID, emojiLine, emojiArrow, emojiCurrency, bannerUrlStock, gmtTime, intervalLiveStock);
+            doThreadingLiveStock(connection, shardManager, config);
         }
     }
 
@@ -127,7 +86,14 @@ public class JDABot {
         }
     }
 
-    private void doThreadingLiveStock(Connection connection, ShardManager shardManager, String channelId, String emojiLine, String emojiArrow, String emojiCurrency, String bannerUrl, String gmtTime, int interval) {
+    private void doThreadingLiveStock(Connection connection, ShardManager shardManager, Config config) {
+        String channelId = config.getChannelIdLiveStock();
+        String emojiLine = config.getEmojiLine();
+        String emojiArrow = config.getEmojiArrow();
+        String emojiCurrency = config.getEmojiCurrency();
+        String bannerUrl = config.getBannerUrlStock();
+        String gmtTime = config.getGmtTime();
+        int interval = config.getIntervalLiveStock();
         try {
             TextChannel channel = shardManager.getTextChannelById(channelId);
             AtomicReference<String> messageId = new AtomicReference<>();

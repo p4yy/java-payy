@@ -31,6 +31,7 @@ public class Config {
     private String guildID;
     private String channelIdAdminLogsPurchaseSetting;
     private String channelIdLiveStock;
+    private String channelIdBotCommandSlash;
     private boolean isUselogsPurchaseSetting;
     private boolean isUseLiveStock;
     private int intervalLiveStock;
@@ -73,6 +74,7 @@ public class Config {
             this.isUseLiveStock = liveStockSetting.getBoolean("use_feature");
             this.channelIdLiveStock = liveStockSetting.getString("channel_id_live_stock");
             this.intervalLiveStock = liveStockSetting.getInt("interval_in_second");
+            this.channelIdBotCommandSlash = jsonObject.getString("channel_id_bot_command_slash");
 
             JSONArray adminIdsArray = jsonObject.getJSONArray("admin_ids");
             adminIds = new ArrayList<>();
@@ -129,5 +131,7 @@ public class Config {
     public boolean isUseLiveStock() { return isUseLiveStock; }
 
     public int getIntervalLiveStock() { return intervalLiveStock; }
+
+    public String getChannelIdBotCommandSlash() { return channelIdBotCommandSlash; }
 
 }
