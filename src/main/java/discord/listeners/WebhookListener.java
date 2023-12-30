@@ -1,5 +1,6 @@
 package discord.listeners;
 
+import core.Config;
 import discord.utils.UtilsDiscord;
 import logger.LogUtil;
 import net.dv8tion.jda.api.entities.Message;
@@ -13,12 +14,9 @@ import java.util.List;
 
 public class WebhookListener extends ListenerAdapter {
 
-    private final String channelDeposit;
     private final Connection connection;
     private final ShardManager shardManager;
-    private final String idChannelHistory;
-    private final String emojiCurrency;
-    private final boolean isPostgreSQL;
+    private final Config config;
 
     private static int extractNumericValue(String input) {
         String numericPart = input.replaceAll("[^\\d.]", "");
@@ -30,18 +28,15 @@ public class WebhookListener extends ListenerAdapter {
         }
     }
 
-    public WebhookListener(Connection connection, ShardManager shardManager, boolean isPostgreSQL, String channelDeposit, String idChannelHistory, String emojiCurrency) {
+    public WebhookListener(Connection connection, ShardManager shardManager, Config config) {
         this.connection = connection;
-        this.channelDeposit = channelDeposit;
         this.shardManager = shardManager;
-        this.idChannelHistory = idChannelHistory;
-        this.emojiCurrency = emojiCurrency;
-        this.isPostgreSQL = isPostgreSQL;
+        this.config = config;
     }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if (event.isWebhookMessage() && event.getChannel().getId().equals(this.channelDeposit)) {
+        if (event.isWebhookMessage() && event.getChannel().getId().equals(config.getChannelIdDeposit())) {
             Message webhookMessage = event.getMessage();
 
             List<MessageEmbed> embeds = webhookMessage.getEmbeds();
@@ -86,7 +81,7 @@ public class WebhookListener extends ListenerAdapter {
                     }
 
                     if (growidValue != null && depositValue != null) {
-                        UtilsDiscord.addUserBalance(connection, event, shardManager, idChannelHistory, growidValue, depositValue, emojiCurrency, isPostgreSQL, false);
+                        UtilsDiscord.addUserBalance(connection, event, shardManager, config.getChannelIdDepositHistory(), growidValue, depositValue, config.getEmojiCurrency(), config.isPostgreSQL(), false);
                     } else {
                         LogUtil.logError("Webhook", "Can't find Growid value");
                     }

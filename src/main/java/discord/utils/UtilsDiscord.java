@@ -1,5 +1,6 @@
 package discord.utils;
 
+import core.Config;
 import database.Transaction;
 import database.Utils;
 
@@ -297,22 +298,15 @@ public class UtilsDiscord {
     }
 
     // transaction buy
-    public static void buy(
-            Connection connection,
-            MessageReceivedEvent event,
-            ShardManager shardManager,
-            String idChannelHistory,
-            String authorID,
-            String productID,
-            String strCount,
-            String urlBanner,
-            String emojiCurrency,
-            String emojiArrow,
-            String gmt,
-            boolean isUselogsPurchaseSetting,
-            boolean isPostgreSQL,
-            String channelIdAdminLogsPurchaseSetting
-    ) {
+    public static void buy(Connection connection, MessageReceivedEvent event, ShardManager shardManager, String authorID, String productID, String strCount, Config config) {
+        String idChannelHistory = config.getChannelIdHistory();
+        String urlBanner = config.getBannerUrlPurchase();
+        String emojiCurrency = config.getEmojiCurrency();
+        String emojiArrow = config.getEmojiArrow();
+        String gmt = config.getGmtTime();
+        boolean isUselogsPurchaseSetting = config.isUselogsPurchaseSetting();
+        boolean isPostgreSQL = config.isPostgreSQL();
+        String channelIdAdminLogsPurchaseSetting = config.getChannelIdAdminLogsPurchaseSetting();
         try {
             int count = Integer.parseInt(strCount);
             if (count <= 0) {
@@ -399,24 +393,16 @@ public class UtilsDiscord {
     }
 
     // transaction send
-    public static void send (
-            Connection connection,
-            MessageReceivedEvent event,
-            ShardManager shardManager,
-            String idChannelHistory,
-            String authorID,
-            String productID,
-            String strCount,
-            String urlBanner,
-            String emojiCurrency,
-            String emojiArrow,
-            String gmt,
-            String receiverID,
-            String guildID,
-            boolean isUselogsPurchaseSetting,
-            boolean isPostgreSQL,
-            String channelIdAdminLogsPurchaseSetting
-    ) {
+    public static void send (Connection connection, MessageReceivedEvent event, ShardManager shardManager, String authorID, String productID, String strCount, String receiverID, Config config) {
+        String idChannelHistory = config.getChannelIdHistory();
+        String urlBanner = config.getBannerUrlPurchase();
+        String emojiCurrency = config.getEmojiCurrency();
+        String emojiArrow = config.getEmojiArrow();
+        String gmt = config.getGmtTime();
+        String guildID = config.getGuildID();
+        String channelIdAdminLogsPurchaseSetting = config.getChannelIdAdminLogsPurchaseSetting();
+        boolean isUselogsPurchaseSetting = config.isUselogsPurchaseSetting();
+        boolean isPostgreSQL = config.isPostgreSQL();
         try {
             int count = Integer.parseInt(strCount);
             if (count <= 0) {
