@@ -23,6 +23,7 @@ The `config.json` file plays a crucial role in the bot's functionality, housing 
   "emoji_line": "**------------**",
   "emoji_arrow": "",
   "channel_id_deposit": "",
+  "channel_id_bot_command_slash": "",
   "channel_id_history_deposit": "",
   "channel_id_history_purchase": "",
   "banner_url_stock": "",
@@ -54,6 +55,7 @@ These configurations manage various aspects of the Discord bot's functionality:
 - `status_playing`: Discord status the bot displays.
 - `emoji_currency`, `emoji_line`, `emoji_arrow`: Emojis employed for specific functionalities.
 - `channel_id_deposit`: Discord channel ID designated for deposit.
+- `channel_id_bot_command_slash`: Discord channel ID for doing the slash command.
 - `channel_id_history_deposit`: Discord channel ID for history deposit.
 - `channel_id_history_purchase`: Discord channel ID for purchase transaction history.
 - `banner_url_stock`: URL for the banner related to stock information.
