@@ -28,7 +28,7 @@ public class LogUtil {
         logger.info("\u001B[35m | |_| | (_| |\\ V / (_| |  __/ (_| | |_| | |_| |\u001B[0m");
         logger.info("\u001B[35m  \\___/ \\__,_| \\_/ \\__,_|_|   \\__,_|\\__, |\\__, |\u001B[0m");
         logger.info("\u001B[35m                                    |___/ |___/ \u001B[0m");
-        logger.info("\u001B[33mUse version 1.0\u001B[0m");
+        logger.info("\u001B[33mUse version 1.1\u001B[0m");
         logger.info("\u001B[33mCreated by iqlasss(456374610305220611)\u001B[0m");
         logger.info("\u001B[33mJoin discord:\u001B[0m");
         logger.info("\u001B[33mdiscord.gg/nysacFuJTs\u001B[0m");
