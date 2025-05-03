@@ -1,3 +1,5 @@
+# (No Longer Maintained - Feel Free to Fork!)
+
 # JavaPayy
 
 JavaPayy is a Discord bot project designed for facilitating sales within Discord servers. The bot is developed using JDA (Java Discord API) and supports both MySQL and PostgreSQL databases for efficient data management. It's adaptable to various MySQL hosting services or PostgreSQL setups, providing flexibility in database choices based on user preferences or specific requirements.
@@ -91,18 +93,3 @@ For integrating your configuration file path in the `Main.java` file, locate the
 
 Ensure that all dependencies are installed, and the necessary permissions are granted before executing the bot within your chosen development environment.
 
-## Contact Me
-
-For any inquiries, feedback, or collaboration opportunities regarding JavaPayy, feel free to contact me via:
-
-- Discord: iqlasss (456374610305220611)
-
-I'm open to discussions, suggestions, and potential collaborations related to the JavaPayy project.
-
-## Support Me
-
-If you find JavaPayy helpful and wish to support its development or express your appreciation, you can:
-
-- Contribute to the project by submitting pull requests or reporting issues.
-- Share JavaPayy within your community or Discord servers.
-- Or you can buy me a coffee [https://saweria.co/p4yy]
